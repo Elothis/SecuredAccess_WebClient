@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBAccessException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,9 +33,9 @@ public class ControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		
 		try {
-			String action = request.getParameter("action");
-			System.out.println(action);
 			if(action.equalsIgnoreCase("administrationTask")){
 				request.setAttribute("result", workBean.administrationTask());
 			}
@@ -45,7 +46,7 @@ public class ControllerServlet extends HttpServlet {
 				request.setAttribute("result", workBean.basicTask());
 			}
 					
-		} catch (Exception e) {
+		} catch (EJBAccessException e) {
 			request.setAttribute("result", "Access denied!");
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);
