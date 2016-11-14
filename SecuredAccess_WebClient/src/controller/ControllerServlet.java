@@ -34,20 +34,25 @@ public class ControllerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String result = "";
 		
 		try {
 			if(action.equalsIgnoreCase("administrationTask")){
-				request.setAttribute("result", workBean.administrationTask());
+				result = workBean.administrationTask();
+				request.setAttribute("result", result);
 			}
 			else if(action.equalsIgnoreCase("managingTask")){
-				request.setAttribute("result", workBean.managingTask());
+				result = workBean.managingTask();
+				request.setAttribute("result",result);
 			}
 			else if(action.equalsIgnoreCase("basicTask")){
-				request.setAttribute("result", workBean.basicTask());
+				result = workBean.basicTask();
+				request.setAttribute("result", result);
 			}
 					
 		} catch (EJBAccessException e) {
-			request.setAttribute("result", "Access denied!");
+			result = "Access denied!";
+			request.setAttribute("result", result);
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
