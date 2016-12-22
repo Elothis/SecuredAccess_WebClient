@@ -51,7 +51,7 @@ public class ControllerServlet extends HttpServlet {
 			}
 					
 		} catch (EJBAccessException e) {
-			result = "Access denied!";
+			result = "Access denied for " + request.getRemoteUser();
 			request.setAttribute("result", result);
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);
